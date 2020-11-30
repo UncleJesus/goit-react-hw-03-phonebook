@@ -5,7 +5,7 @@ import ContactListItem from "./ContactListItem/ContactListItem";
 const ContactList = ({ contacts, onDelete }) => {
   return (
     <ul>
-      {contacts.length ? (
+      {contacts.length > 0 ? (
         contacts.map(({ id, name, number }) => (
           <ContactListItem
             key={id}

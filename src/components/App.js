@@ -15,6 +15,19 @@ class App extends Component {
     filter: "",
   };
 
+  componentDidMount() {
+    const persistedTasks = localStorage.getItem("conctacts");
+    if (persistedTasks) {
+      this.setState({ contacts: JSON.parse(persistedTasks) });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem("conctacts", JSON.stringify(this.state.contacts));
+    }
+  }
+
   changeHandler = (e) => {
     const { name, value } = e.target;
 
@@ -47,7 +60,7 @@ class App extends Component {
 
   filterContactsByName = () => {
     const { contacts, filter } = this.state;
-    if (contacts.length) {
+    if (contacts.length > 0) {
       return contacts.filter((contact) =>
         contact.name.toLowerCase().includes(filter.toLowerCase())
       );
